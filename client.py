@@ -17,7 +17,8 @@ async def richiesta(host,porta,diz):
 
 async def main():
     while True:
-        ser=input("inserisci servizio tra echo o time")  #alternare time o echo
+        print("inserisci un servizio tra echo o time")
+        ser=await asyncio.to_thread(input)
         porta=6000
         cmd="lookup"
         name= await richiesta("127.0.0.1",porta,{"cmd":cmd,"service":ser})
@@ -30,7 +31,8 @@ async def main():
             if cmd=="time":
                 request= await richiesta("127.0.0.1",porta,{"cmd":cmd})
             if cmd=="echo":
-                mes=input("inserisci messaggio")
+                print("inserisci messaggio")
+                mes=await asyncio.to_thread(input)
                 request = await richiesta("127.0.0.1", porta, {"cmd": cmd, "text": mes})
             print(request)
 
